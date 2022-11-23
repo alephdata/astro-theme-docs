@@ -1,0 +1,42 @@
+---
+import Icon from './Icon.astro';
+
+const { link, label, page } = Astro.props;
+let pageObj = null;
+
+if ((!link || !label) && page) {
+  const allPages = await Astro.glob('/**/*.mdx');
+  pageObj = allPages.find((pageObj) => (pageObj.url || '/') === page);
+}
+---
+
+<style>
+  .LinkCard {
+    display: block;
+    padding-block: var(--space-sm);
+    padding-inline: var(--space-sm);
+
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 500;
+
+    transition: 0.2s all ease-out;
+  }
+
+  .LinkCard:hover {
+    border-color: var(--color-border-emphasis);
+    color: var(--color-fg-primary);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .LinkCard__icon {
+    opacity: 0.8;
+  }
+</style>
+
+<a href={Astro.props.link || pageObj?.url} class="LinkCard">
+  {Astro.props.label || pageObj?.frontmatter.title}
+  <Icon icon="chevron-right" className="LinkCard__icon" />
+</a>

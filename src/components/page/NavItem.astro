@@ -1,0 +1,71 @@
+---
+import Icon from '../common/Icon.astro';
+const {
+  title,
+  link,
+  active = false,
+  external = false,
+  children = [],
+} = Astro.props;
+const showChildren = active || children.some((child) => child.active);
+---
+
+<style>
+  .NavItem > a {
+    display: block;
+    margin-inline: calc(-1 * var(--space-xs));
+    padding-block: calc(1 / 8 * var(--space));
+    padding-inline: var(--space-xs);
+    border-radius: var(--radius);
+
+    color: var(--color-fg-muted);
+    line-height: 1.5;
+    font-weight: 400;
+    text-decoration: none;
+
+    transition: 0.1s background-color ease-out;
+  }
+
+  .NavItem:not(.NavItem--active) > a:hover {
+    color: var(--color-fg-default);
+    background-color: var(--color-bg-subtle);
+  }
+
+  .NavItem--active > a {
+    background-color: var(--color-bg-primary);
+    color: var(--color-fg-primary);
+    font-weight: 500;
+  }
+
+  .NavItem__icon {
+    opacity: 0.8;
+  }
+
+  .NavItem__children {
+    margin-block-start: var(--space-xxs);
+    padding-inline-start: var(--space-sm);
+    border-left: 1px solid var(--color-border-default);
+    font-size: var(--font-size-sm);
+  }
+
+  .NavItem__children > :global(* + *) {
+    margin-block-start: var(--space-xxs);
+  }
+</style>
+
+<li class:list={['NavItem', active && 'NavItem--active']}>
+  <a href={link}>
+    {title}
+    {external && <Icon icon="external-link" className="NavItem__icon" />}
+  </a>
+
+  {
+    children.length > 0 && showChildren && (
+      <ul class="NavItem__children">
+        {children.map((child) => (
+          <Astro.self {...child} />
+        ))}
+      </ul>
+    )
+  }
+</li>

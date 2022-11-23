@@ -1,0 +1,37 @@
+---
+const { theme } = Astro.props;
+---
+
+<style>
+  .Callout {
+    --callout-color-bg: var(--color-bg-primary);
+    --callout-color-border: var(--color-border-primary);
+    --callout-color-fg: var(--color-fg-primary);
+
+    padding-block: var(--space-xs);
+    padding-inline: var(--space-sm);
+
+    border-radius: var(--radius);
+    background-color: var(--callout-color-bg);
+    color: var(--callout-color-fg);
+    border-left: 4px solid var(--callout-color-border);
+  }
+
+  .Callout--danger {
+    --callout-color-bg: var(--color-bg-negative);
+    --callout-color-border: var(--color-border-negative);
+    --callout-color-fg: var(--color-fg-negative);
+  }
+
+  .Callout > :global(* + *) {
+    margin-top: var(--space-xs);
+  }
+
+  .Callout :global(a) {
+    color: inherit;
+  }
+</style>
+
+<div class:list={['Callout', theme && `Callout--${theme}`]}>
+  <slot />
+</div>

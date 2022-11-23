@@ -1,0 +1,25 @@
+---
+const { size = null } = Astro.props;
+---
+
+<style>
+  .Stack {
+    --stack-size: var(--space);
+  }
+
+  .Stack > :global(* + *) {
+    margin-block-start: var(--stack-size);
+  }
+
+  .Stack-lg {
+    --stack-size: var(--space-lg);
+  }
+
+  .Stack-xl {
+    --stack-size: var(--space-xl);
+  }
+</style>
+
+<div class:list={['Stack', size && `Stack-${size}`]}>
+  <slot />
+</div>

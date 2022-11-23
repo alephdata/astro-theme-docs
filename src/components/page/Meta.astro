@@ -1,0 +1,38 @@
+---
+import util from 'node:util';
+import path from 'node:path';
+import process from 'node:process';
+import childProcess from 'node:child_process';
+
+const exec = util.promisify(childProcess.exec);
+
+const { githubRepoUrl, branch } = Astro.props.options;
+
+const repoRoot = (await exec('git rev-parse --show-toplevel')).stdout.trim();
+const docsRoot = process.cwd();
+const docsDir = path.relative(repoRoot, docsRoot);
+const pagePath = path.relative(docsRoot, Astro.props.path);
+
+const command = `git log -1 --pretty="format:%cs" --date=short -- ${branch} ${pagePath}`;
+const lastUpdated = (await exec(command)).stdout.trim();
+
+const githubUrl = (op, pagePath) =>
+  path.join(githubRepoUrl, op, branch, docsDir, pagePath);
+---
+
+<style>
+  .Meta a {
+    color: var(--color-fg-muted);
+    font-size: var(--font-size-sm);
+  }
+</style>
+
+<div class="Meta">
+  <a href={githubUrl('commits', pagePath)} noreferrer noopener
+    >Last updated on {lastUpdated}.</a
+  >
+  <br />
+  <a href={githubUrl('edit', pagePath)} noreferrer noopener
+    >Edit this page on GitHub.</a
+  >
+</div>

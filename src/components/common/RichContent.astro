@@ -1,0 +1,18 @@
+<style>
+  .RichContent {
+    hyphens: auto;
+  }
+
+  .RichContent > :global(*:not(:last-child)) {
+    margin-block-end: calc(0.75rem * var(--line-height));
+  }
+
+  .RichContent > :global(:where(h1, h2, h3):not(:first-child)) {
+    margin-block-start: calc(1em * var(--line-height));
+    margin-block-end: calc(0.25em * var(--line-height));
+  }
+</style>
+
+<div class="RichContent">
+  <slot />
+</div>

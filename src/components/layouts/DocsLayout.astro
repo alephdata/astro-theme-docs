@@ -1,0 +1,19 @@
+---
+import DefaultLayout from './DefaultLayout.astro';
+import ExpandableSidebar from '../page/ExpandableSidebar.astro';
+import DocsNav from '../docs/DocsNav.astro';
+import TocNav from '../page/TocNav.astro';
+import Meta from '../page/Meta.astro';
+
+const headings = Astro.props.headings.filter(({ depth }) => depth === 2);
+const { options } = Astro.props;
+---
+
+<DefaultLayout {...Astro.props}>
+  <ExpandableSidebar slot="sidebar">
+    <DocsNav nav={options.nav.sidebar} />
+  </ExpandableSidebar>
+  <slot />
+  {headings.length > 0 && <TocNav slot="toc" headings={headings} />}
+  <Meta slot="meta" options={options.git} path={Astro.props.content.file} />
+</DefaultLayout>

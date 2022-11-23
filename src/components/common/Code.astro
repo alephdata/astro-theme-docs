@@ -1,0 +1,46 @@
+---
+import { Code } from 'astro/components';
+import { getHighlighter } from 'shiki';
+
+const { code, meta } = Astro.props;
+const title = typeof meta === 'string' && meta.match(/title="(.*)"/i)[1];
+
+let { lang } = Astro.props;
+
+if (typeof lang !== 'string') {
+  lang = undefined;
+}
+
+const theme = 'github-dark';
+const highlighter = await getHighlighter({ theme });
+const background = highlighter.getBackgroundColor();
+---
+
+<style define:vars={{ 'code-color-background': background }}>
+  .Code {
+    overflow: hidden;
+    background-color: var(--code-color-background);
+    border-radius: var(--radius);
+  }
+
+  .Code__title {
+    padding-block: var(--space-xxs);
+    padding-inline: var(--space-sm);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+  }
+
+  .Code > :global(pre) {
+    padding-block: var(--space-xs);
+    padding-inline: var(--space-sm);
+  }
+</style>
+
+<div class="Code">
+  {title && <div class="Code__title">{title}</div>}
+  <Code {code} {theme} {lang} />
+</div>

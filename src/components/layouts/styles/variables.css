@@ -1,0 +1,68 @@
+:root {
+  --space-xxs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 2.5rem;
+  --space-xxl: 3rem;
+
+  --font-size: 100%;
+  --font-size-alpha: 2.25em;
+  --font-size-beta: 1.5em;
+  --font-size-gamma: 1.25em;
+  --font-size-sm: 0.85em;
+  --font-size-lg: 1.25rem;
+  --line-height: 1.7;
+  --font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --radius-sm: 0.125rem;
+  --radius: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-full: 9999px;
+
+  --color-bg-default: rgb(248, 250, 252);
+  --color-bg-elevated: rgb(255, 255, 255);
+  --color-bg-subtle: rgb(100, 116, 139, 0.15);
+  --color-bg-primary: rgba(96, 165, 250, 0.15);
+  --color-bg-positive: rgb(16, 185, 129, 0.15);
+  --color-bg-negative: rgba(236, 72, 153, 0.15);
+  --color-bg-highlight: rgb(250, 204, 21, 0.15);
+
+  --color-fg-default: rgb(50, 60, 76);
+  --color-fg-emphasis: rgb(17, 24, 39);
+  --color-fg-muted: rgb(76, 90, 110);
+  --color-fg-primary: rgb(30, 58, 138); /* blue-900 */
+  --color-fg-positive: rgb(6, 78, 59); /* emerald-900 */
+  --color-fg-negative: rgb(131, 24, 67); /* pink-900 */
+  --color-fg-highlight: rgb(113, 63, 18); /* yellow-900 */
+
+  --color-border-default: rgb(229, 231, 235);
+  --color-border-emphasis: rgb(209, 213, 219);
+  --color-border-primary: rgb(37, 99, 235); /* blue-400 */
+  --color-border-positive: rgb(5, 150, 105); /* emerald-400 */
+  --color-border-negative: rgb(219, 39, 119); /* pink-400 */
+  --color-border-highlight: rgb(250, 204, 21); /* yellow-400 */
+
+  --header-height: 3rem;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-default: rgb(17, 24, 39);
+    --color-bg-elevated: rgb(31, 41, 55);
+
+    --color-fg-default: rgb(209, 213, 219);
+    --color-fg-emphasis: rgb(255, 255, 255);
+    --color-fg-muted: rgb(170, 182, 198);
+    --color-fg-primary: rgb(147, 197, 253);
+    --color-fg-positive: rgb(110, 231, 183);
+    --color-fg-negative: rgb(249, 168, 212);
+    --color-fg-highlight: rgb(254, 240, 138);
+
+    --color-border-default: rgb(51, 65, 85);
+    --color-border-emphasis: rgb(71, 85, 105);
+  }
+}

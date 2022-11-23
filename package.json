@@ -1,0 +1,30 @@
+{
+  "name": "astro-theme-docs",
+  "version": "0.1.0",
+  "description": "",
+  "tags": [
+    "astro"
+  ],
+  "type": "module",
+  "exports": {
+    "./plugins": "./src/plugins/index.js",
+    "./components": "./src/components/index.js"
+  },
+  "scripts": {
+    "format": "prettier --write src/",
+    "format:check": "prettier --check src/"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "astro": "^1.6.10",
+    "shiki": "^0.11.1",
+    "unist-util-visit": "^4.1.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  },
+  "prettier": {
+    "singleQuote": true
+  }
+}

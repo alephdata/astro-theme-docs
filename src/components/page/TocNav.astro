@@ -1,0 +1,25 @@
+---
+import Nav from '../page/Nav.astro';
+import NavItem from '../page/NavItem.astro';
+const { headings } = Astro.props;
+---
+
+<style></style>
+
+<div>
+  {
+    headings.length > 0 && (
+      <Fragment>
+        <h2 id="toc-nav-heading" class="delta">
+          On this page
+        </h2>
+
+        <Nav aria-labelledby="toc-nav-heading">
+          {headings.map(({ text, slug }) => (
+            <NavItem link={`#${slug}`} title={text} />
+          ))}
+        </Nav>
+      </Fragment>
+    )
+  }
+</div>

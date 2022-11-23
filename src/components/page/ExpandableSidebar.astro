@@ -1,0 +1,89 @@
+---
+import Icon from '../common/Icon.astro';
+---
+
+<style>
+  .ExpandableSidebar__toggle {
+    position: sticky;
+    z-index: 1;
+    top: var(--header-height);
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding-block: var(--space-xs);
+    border-bottom: 1px solid var(--color-border-default);
+
+    background-color: var(--color-bg-default);
+    /* Hide horizontal overflow while stuck to top */
+    box-shadow: -50px 0 0 var(--color-bg-default),
+      50px 0 0 var(--color-bg-default);
+  }
+
+  .ExpandableSidebar__content {
+    display: none;
+    margin-block-start: var(--space);
+  }
+
+  .ExpandableSidebar__hide {
+    display: none;
+  }
+
+  [data-expanded='true'] .ExpandableSidebar__content {
+    display: block;
+  }
+
+  [data-expanded='true'] .ExpandableSidebar__hide {
+    display: inline;
+  }
+
+  [data-expanded='true'] .ExpandableSidebar__show {
+    display: none;
+  }
+
+  @media screen and (min-width: 46rem) {
+    .ExpandableSidebar__toggle {
+      display: none;
+    }
+
+    .ExpandableSidebar__content {
+      display: block;
+      margin: 0;
+    }
+  }
+</style>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.querySelector('#expandable-sidebar');
+    const button = document.querySelector('#expandable-sidebar-toggle');
+
+    button.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+
+      if (expanded) {
+        sidebar.dataset.expanded = 'false';
+        button.setAttribute('aria-expanded', 'false');
+      } else {
+        sidebar.dataset.expanded = 'true';
+        button.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<div class="ExpandableSidebar" id="expandable-sidebar">
+  <button
+    class="ExpandableSidebar__toggle"
+    id="expandable-sidebar-toggle"
+    aria-expanded="false"
+    aria-controls="expandable-sidebar-content"
+  >
+    <Icon icon="menu" />
+    <span class="ExpandableSidebar__show">Show navigation</span>
+    <span class="ExpandableSidebar__hide">Hide navigation</span>
+  </button>
+
+  <div class="ExpandableSidebar__content" id="expandable-sidebar-content">
+    <slot />
+  </div>
+</div>

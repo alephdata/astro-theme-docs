@@ -1,0 +1,45 @@
+---
+import Nav from '../page/Nav.astro';
+import NavSection from '../page/NavSection.astro';
+import NavItem from '../page/NavItem.astro';
+
+const allPages = await Astro.glob('/**/*.mdx');
+const normalizeUrl = (url) => url.replace(/\/$/, '');
+const currentUrl = normalizeUrl(Astro.url.pathname);
+
+const normalizeItem = (item) => {
+  if (typeof item.slug === 'string') {
+    const slug = normalizeUrl(item.slug);
+    const page = allPages.find((page) => normalizeUrl(page.url) === slug);
+
+    item = {
+      ...item,
+      link: item.slug,
+      title: page.frontmatter.title,
+      active: slug === currentUrl,
+    };
+  }
+
+  item.children = item.children || [];
+  item.children = item.children.map((child) => normalizeItem(child));
+
+  return item;
+};
+
+const sections = Astro.props.nav.sections.map((section) => ({
+  ...section,
+  items: section.items.map((item) => normalizeItem(item)),
+}));
+---
+
+<Nav>
+  {
+    sections.map((section) => (
+      <NavSection title={section.title}>
+        {section.items.map((item) => (
+          <NavItem {...item} />
+        ))}
+      </NavSection>
+    ))
+  }
+</Nav>

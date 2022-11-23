@@ -1,0 +1,29 @@
+---
+const { id } = Astro.props;
+
+const parameters = {
+  color: 'white',
+  iv_load_policy: '3',
+  modestbranding: '1',
+  rel: '0',
+};
+
+const base = 'https://www.youtube-nocookie.com/embed';
+const queryString = new URLSearchParams(parameters).toString();
+const url = `${base}/${id}?${queryString}`;
+---
+
+<style>
+  .Youtube {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+  }
+</style>
+
+<iframe
+  class="Youtube"
+  src={url}
+  title="YouTube video player"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen></iframe>

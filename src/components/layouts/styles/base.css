@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--color-bg-default);
+  color: var(--color-fg-default);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  font-family: var(--font-family);
+
+  scroll-behavior: smooth;
+  scroll-padding-block-start: calc(var(--header-height) + var(--space));
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
