@@ -32,7 +32,7 @@ const { title, nav } = Astro.props;
 
 <header class="Header">
   <Wrapper padded className="Header__wrapper">
-    <a href="/" class="Header__title">{title}</a>
+    <a href={Astro.site?.pathname || '/'} class="Header__title">{title}</a>
     <HeaderNav nav={nav} />
   </Wrapper>
 </header>

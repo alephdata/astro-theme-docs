@@ -1,20 +1,22 @@
 ---
+import path from 'node:path';
 import Nav from '../page/Nav.astro';
 import NavSection from '../page/NavSection.astro';
 import NavItem from '../page/NavItem.astro';
 
 const allPages = await Astro.glob('/**/*.mdx');
-const normalizeUrl = (url) => url.replace(/\/$/, '');
+const normalizeUrl = (url) => url.replace(/\/+$/, '');
 const currentUrl = normalizeUrl(Astro.url.pathname);
+const basePath = Astro.site?.pathname || '';
 
 const normalizeItem = (item) => {
   if (typeof item.slug === 'string') {
-    const slug = normalizeUrl(item.slug);
+    const slug = normalizeUrl(path.join(basePath, item.slug));
     const page = allPages.find((page) => normalizeUrl(page.url) === slug);
 
     item = {
       ...item,
-      link: item.slug,
+      link: slug,
       title: page.frontmatter.title,
       active: slug === currentUrl,
     };

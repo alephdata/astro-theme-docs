@@ -1,12 +1,22 @@
 ---
+import path from 'node:path';
 import Icon from './Icon.astro';
 
-const { link, label, page } = Astro.props;
+let { link } = Astro.props;
+const { label, page } = Astro.props;
+const basePath = Astro.site?.pathname || '';
 let pageObj = null;
 
-if ((!link || !label) && page) {
+
+if (link && link.startsWith('/')) {
+  link = path.join(basePath, link);
+}
+
+if (page && (!link || !label)) {
   const allPages = await Astro.glob('/**/*.mdx');
-  pageObj = allPages.find((pageObj) => (pageObj.url || '/') === page);
+  pageObj = allPages.find(
+    (pageObj) => (pageObj.url || '/') === path.join(basePath, page)
+  );
 }
 ---
 
@@ -36,7 +46,7 @@ if ((!link || !label) && page) {
   }
 </style>
 
-<a href={Astro.props.link || pageObj?.url} class="LinkCard">
+<a href={link || pageObj?.url} class="LinkCard">
   {Astro.props.label || pageObj?.frontmatter.title}
   <Icon icon="chevron-right" className="LinkCard__icon" />
 </a>

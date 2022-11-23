@@ -1,9 +1,15 @@
 ---
-const items = Astro.props.nav.items.map(({ title, link }) => ({
-  title,
-  link,
-  active: Astro.url.pathname.startsWith(link),
-}));
+import path from 'node:path';
+const basePath = Astro.site?.pathname || '';
+const items = Astro.props.nav.items.map(({ title, link }) => {
+  link = path.join(basePath, link);
+
+  return {
+    title,
+    link,
+    active: Astro.url.pathname.startsWith(link),
+  };
+});
 ---
 
 <style>
