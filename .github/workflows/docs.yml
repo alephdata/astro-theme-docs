@@ -52,10 +52,26 @@ jobs:
             --site "${{ steps.pages.outputs.base_url }}" \
             --base "${{ steps.pages.outputs.base_path }}"
 
+      - name: Move build artifacts
+        # This is a workaround. The link checking tool we're using does not support.
+        # We need to create a directory structure that matches URLs in the generated HTML.
+        # For example, if the page is deployed to user.github.io/repo-name, all HTML files
+        # need to be moved to `dist/repo-name`.
+        run: |
+          if [ -n "${{ steps.pages.outputs.base_path }}" ];
+          then
+            mv ./dist ./dist-tmp
+            mkdir ./dist
+            mv ./dist-tmp ./dist/${{ steps.pages.outputs.base_path }}
+          fi
+
+      - name: Check links
+        run: npm run links -- --github-actions
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ${{ inputs.build-path }}/dist
+          path: ${{ inputs.build-path }}/dist/${{ steps.pages.outputs.base_path }}
 
   deploy:
     if: ${{ inputs.deploy }}
