@@ -7,7 +7,6 @@ const { label, page } = Astro.props;
 const basePath = Astro.site?.pathname || '';
 let pageObj = null;
 
-
 if (link && link.startsWith('/')) {
   link = path.join(basePath, link);
 }

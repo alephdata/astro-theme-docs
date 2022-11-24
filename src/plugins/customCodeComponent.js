@@ -12,19 +12,21 @@ import { visit } from 'unist-util-visit';
  * ```
  */
 export default function customCodeComponent() {
-  return (tree) => {
-    visit(tree, 'code', (node, index, parent) => {
-      const componentNode = {
-        type: 'mdxJsxFlowElement',
-        name: 'Code',
-        attributes: [
-          { type: 'mdxJsxAttribute', name: 'lang', value: node.lang },
-          { type: 'mdxJsxAttribute', name: 'code', value: node.value },
-          { type: 'mdxJsxAttribute', name: 'meta', value: node.meta },
-        ],
-      };
+  return () => {
+    return (tree) => {
+      visit(tree, 'code', (node, index, parent) => {
+        const componentNode = {
+          type: 'mdxJsxFlowElement',
+          name: 'Code',
+          attributes: [
+            { type: 'mdxJsxAttribute', name: 'lang', value: node.lang },
+            { type: 'mdxJsxAttribute', name: 'code', value: node.value },
+            { type: 'mdxJsxAttribute', name: 'meta', value: node.meta },
+          ],
+        };
 
-      parent.children.splice(index, 1, componentNode);
-    });
+        parent.children.splice(index, 1, componentNode);
+      });
+    };
   };
 }

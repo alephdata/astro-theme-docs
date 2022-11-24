@@ -12,28 +12,30 @@ const HEADING_CLASSES = ['alpha', 'beta', 'gamma'];
  * be reset manually whenever the default styles are not needed).
  */
 export default function explorerLinks() {
-  return (tree) => {
-    visit(tree, ['heading', 'list'], (node) => {
-      node.data = node.data || {};
-      node.data.hProperties = node.data.hProperties || {};
+  return () => {
+    return (tree) => {
+      visit(tree, ['heading', 'list'], (node) => {
+        node.data = node.data || {};
+        node.data.hProperties = node.data.hProperties || {};
 
-      if (node.type === 'heading') {
-        node.data.hProperties = {
-          ...node.data.hProperties,
-          class: HEADING_CLASSES[node.depth - 1],
-        };
+        if (node.type === 'heading') {
+          node.data.hProperties = {
+            ...node.data.hProperties,
+            class: HEADING_CLASSES[node.depth - 1],
+          };
 
-        return;
-      }
+          return;
+        }
 
-      if (node.type === 'list') {
-        node.data.hProperties = {
-          ...node.data.hProperties,
-          class: node.ordered ? 'ordered-list' : 'unordered-list',
-        };
+        if (node.type === 'list') {
+          node.data.hProperties = {
+            ...node.data.hProperties,
+            class: node.ordered ? 'ordered-list' : 'unordered-list',
+          };
 
-        return;
-      }
-    });
+          return;
+        }
+      });
+    };
   };
 }
