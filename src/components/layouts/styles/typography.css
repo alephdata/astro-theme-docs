@@ -1,7 +1,7 @@
 a {
   text-decoration: underline;
   color: var(--color-fg-emphasis);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 strong {
@@ -25,6 +25,7 @@ table th {
   text-align: left;
   background: var(--color-bg-default);
   border-bottom-color: var(--color-border-emphasis);
+  font-weight: 600;
 }
 
 code {
