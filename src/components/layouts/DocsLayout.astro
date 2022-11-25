@@ -9,7 +9,7 @@ const headings = Astro.props.headings.filter(({ depth }) => depth === 2);
 const { options } = Astro.props;
 ---
 
-<DefaultLayout {...Astro.props}>
+<DefaultLayout layout="docs" {...Astro.props}>
   <ExpandableSidebar slot="sidebar">
     <DocsNav nav={options.nav.sidebar} />
   </ExpandableSidebar>
