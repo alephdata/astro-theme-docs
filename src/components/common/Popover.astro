@@ -1,0 +1,54 @@
+---
+import 'tippy.js/dist/svg-arrow.css';
+const content = await Astro.slots.render('content');
+---
+
+<script>
+  import tippy, { roundArrow } from 'tippy.js';
+
+  window.addEventListener('load', () => {
+    tippy('.Popover', {
+      allowHTML: true,
+      animation: 'fade',
+      duration: 200,
+
+      // concatenate the SVG to create border and fill
+      arrow: roundArrow + roundArrow,
+    });
+  });
+</script>
+
+<style is:global>
+  .tippy-box {
+    --tippy-border-width: 1px;
+    --tippy-color-bg: var(--color-bg-elevated);
+    --tippy-color-border: var(--color-border-emphasis);
+
+    position: relative;
+
+    font-size: var(--font-size-sm);
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--tippy-color-bg);
+    border-radius: var(--radius);
+    border: var(--tippy-border-width) solid var(--tippy-color-border);
+
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(0 3px 15px rgba(0, 0, 0, 0.1));
+  }
+
+  .tippy-svg-arrow > svg:first-child {
+    fill: var(--tippy-color-border);
+  }
+
+  .tippy-svg-arrow > svg:last-child {
+    fill: var(--tippy-color-bg);
+    margin-top: calc(-1 * var(--tippy-border-width));
+  }
+
+  .tippy-box[data-animation='fade'][data-state='hidden'] {
+    opacity: 0;
+  }
+</style>
+
+<span class="Popover" data-tippy-content={content} tabindex="0">
+  <slot />
+</span>

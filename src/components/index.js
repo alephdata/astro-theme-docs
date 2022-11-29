@@ -5,6 +5,7 @@ export { default as RichContent } from './common/RichContent.astro';
 export { default as Stack } from './common/Stack.astro';
 export { default as Youtube } from './common/Youtube.astro';
 export { default as Code } from './common/Code.astro';
+export { default as Popover } from './common/Popover.astro';
 
 export { default as DocsNav } from './docs/DocsNav.astro';
 

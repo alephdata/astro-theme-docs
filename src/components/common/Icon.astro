@@ -1,5 +1,5 @@
 ---
-const { icon, className } = Astro.props;
+const { icon, className, label } = Astro.props;
 ---
 
 <style>
@@ -18,7 +18,11 @@ const { icon, className } = Astro.props;
   }
 </style>
 
-<div class:list={['Icon', className]} aria-hidden="true">
+<div
+  class:list={['Icon', className]}
+  aria-hidden="true"
+  aria-label={label || false}
+>
   {
     icon === 'external-link' && (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -49,7 +53,7 @@ const { icon, className } = Astro.props;
   }
 
   {
-    icon === 'start' && (
+    icon === 'star' && (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
         <path
           fill-rule="evenodd"
@@ -62,10 +66,22 @@ const { icon, className } = Astro.props;
 
   {
     icon === 'menu' && (
-      <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
         <path
           fill-rule="evenodd"
           d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    )
+  }
+
+  {
+    icon === 'asterisk' && (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+        <path
+          fill-rule="evenodd"
+          d="M10 2.06c.78 0 1.42.6 1.5 1.35v4.74l4.88-1.64a1.5 1.5 0 0 1 1.09 2.8l-.14.05-5.12 1.71 3.41 4.84a1.5 1.5 0 0 1-2.36 1.84l-.1-.11-3.16-4.5-3.17 4.5a1.5 1.5 0 0 1-2.53-1.6l.08-.13 3.41-4.84-5.12-1.71a1.5 1.5 0 0 1 .81-2.89l.14.04L8.5 8.15v-4.6c0-.82.67-1.5 1.5-1.5Z"
           clip-rule="evenodd"
         />
       </svg>
