@@ -39,8 +39,8 @@
   --color-fg-negative: rgb(131, 24, 67); /* pink-900 */
   --color-fg-highlight: rgb(113, 63, 18); /* yellow-900 */
 
-  --color-border-default: rgb(229, 231, 235);
-  --color-border-emphasis: rgb(209, 213, 219);
+  --color-border-default: rgb(211, 213, 219);
+  --color-border-emphasis: rgb(195, 199, 205);
   --color-border-primary: rgb(37, 99, 235); /* blue-400 */
   --color-border-positive: rgb(5, 150, 105); /* emerald-400 */
   --color-border-negative: rgb(219, 39, 119); /* pink-400 */
