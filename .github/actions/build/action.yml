@@ -1,0 +1,68 @@
+name: Build docs
+
+inputs:
+  token:
+    description: "GitHub access token"
+    required: true
+  docs-path:
+    description: "Path to the docs root in the repository"
+    required: false
+    default : "."
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: npm
+        cache-dependency-path: ${{ inputs.docs-path }}/package-lock.json
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: ${{ inputs.docs-path }}
+      run: npm ci
+
+    - name: Check formatting
+      shell: bash
+      working-directory: ${{ inputs.docs-path }}
+      run: npm run format:check
+
+    - name: Configure GitHub Pages
+      id: pages
+      uses: actions/configure-pages@v2
+
+    - name: Build static site
+      shell: bash
+      working-directory: ${{ inputs.docs-path }}
+      run: |
+        npm run build -- \
+          --site "${{ steps.pages.outputs.base_url }}" \
+          --base "${{ steps.pages.outputs.base_path }}"
+
+    - name: Move build artifacts
+      shell: bash
+      working-directory: ${{ inputs.docs-path }}
+      # This is a workaround. The link checking tool we're using does not support.
+      # We need to create a directory structure that matches URLs in the generated HTML.
+      # For example, if the page is deployed to user.github.io/repo-name, all HTML files
+      # need to be moved to `dist/repo-name`.
+      run: |
+        if [ -n "${{ steps.pages.outputs.base_path }}" ];
+        then
+          mv ./dist ./dist-tmp
+          mkdir ./dist
+          mv ./dist-tmp ./dist/${{ steps.pages.outputs.base_path }}
+        fi
+
+    - name: Check links
+      shell: bash
+      working-directory: ${{ inputs.docs-path }}
+      run: npm run links -- --github-actions
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: ${{ inputs.docs-path }}/dist/${{ steps.pages.outputs.base_path }}
