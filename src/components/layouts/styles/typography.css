@@ -105,3 +105,7 @@ code:not(pre code) {
 .unordered-list {
   list-style: disc;
 }
+
+:where(.ordered-list, .unordered-list) li :where(.ordered-list, .unordered-list) {
+  margin-top: var(--space-xs);
+}
