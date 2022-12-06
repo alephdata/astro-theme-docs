@@ -1,6 +1,8 @@
 ---
+import path from 'node:path';
 import Figure from './Figure.astro';
 const { src, alt, caption } = Astro.props;
+const basePath = Astro.site?.pathname || '';
 ---
 
 <style>
@@ -13,10 +15,10 @@ const { src, alt, caption } = Astro.props;
   <a
     class="Image__link"
     title="Expand image"
-    href={src}
+    href={path.join(basePath, src)}
     target="_blank"
   >
-    <img {src} {alt} />
+    <img src={path.join(basePath, src)} {alt} />
   </a>
   <Fragment slot="caption">{caption}</Fragment>
 </Figure>
