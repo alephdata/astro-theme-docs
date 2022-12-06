@@ -1,24 +1,41 @@
 ---
 import path from 'node:path';
+import process from 'node:process';
+import imageSize from 'image-size';
 import Figure from './Figure.astro';
-const { src, alt, caption } = Astro.props;
+
+const { src, alt, caption, density } = Astro.props;
+
+const root = process.cwd();
+const absolutePath = path.join(root, 'public', src);
+
 const basePath = Astro.site?.pathname || '';
+const { width } = imageSize(absolutePath);
 ---
 
 <style>
+  .Image {
+    overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border-default);
+    max-width: min(100%, calc(var(--image-width) / var(--image-density)));
+  }
+
   .Image__link {
     display: block;
   }
 </style>
 
 <Figure>
-  <a
-    class="Image__link"
-    title="Expand image"
-    href={path.join(basePath, src)}
-    target="_blank"
-  >
-    <img src={path.join(basePath, src)} {alt} />
-  </a>
+  <div class="Image" style={`--image-width: ${width}px; --image-density: ${density ?? 1}`}>
+    <a
+      class="Image__link"
+      title="Expand image"
+      href={path.join(basePath, src)}
+      target="_blank"
+    >
+      <img src={path.join(basePath, src)} {alt} />
+    </a>
+  </div>
   <Fragment slot="caption">{caption}</Fragment>
 </Figure>
