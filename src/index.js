@@ -40,6 +40,8 @@ export default ({ markdownPlugins = [], mdxPlugins = [] } = {}) => [
         LinkCard: componentsEntry,
         Youtube: componentsEntry,
         Code: componentsEntry,
+        Figure: componentsEntry,
+        Image: componentsEntry,
       }),
       ...mdxPlugins,
     ],

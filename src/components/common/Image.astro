@@ -1,0 +1,22 @@
+---
+import Figure from './Figure.astro';
+const { src, alt, caption } = Astro.props;
+---
+
+<style>
+  .Image__link {
+    display: block;
+  }
+</style>
+
+<Figure>
+  <a
+    class="Image__link"
+    title="Expand image"
+    href={src}
+    target="_blank"
+  >
+    <img {src} {alt} />
+  </a>
+  <Fragment slot="caption">{caption}</Fragment>
+</Figure>

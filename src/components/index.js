@@ -6,6 +6,8 @@ export { default as Stack } from './common/Stack.astro';
 export { default as Youtube } from './common/Youtube.astro';
 export { default as Code } from './common/Code.astro';
 export { default as Popover } from './common/Popover.astro';
+export { default as Figure } from './common/Figure.astro';
+export { default as Image } from './common/Image.astro';
 
 export { default as DocsNav } from './docs/DocsNav.astro';
 
