@@ -17,7 +17,7 @@ const command = `git log -1 --pretty="format:%cs" --date=short -- ${branch} ${pa
 const lastUpdated = (await exec(command)).stdout.trim();
 
 const githubUrl = (op, pagePath) =>
-  path.join(githubRepoUrl, op, branch, docsDir, pagePath);
+  githubRepoUrl + '/' + path.join(op, branch, docsDir, pagePath);
 ---
 
 <style>
