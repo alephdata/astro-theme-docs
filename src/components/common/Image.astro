@@ -6,11 +6,17 @@ import Figure from './Figure.astro';
 
 const { src, alt, caption, density } = Astro.props;
 
-const root = process.cwd();
-const absolutePath = path.join(root, 'public', src);
+let width;
+let url = src;
 
-const basePath = Astro.site?.pathname || '';
-const { width } = imageSize(absolutePath);
+if (src.startsWith('/')) {
+  const root = process.cwd();
+  const absolutePath = path.join(root, 'public', src);
+  const baseUrl = Astro.site?.pathname || '';
+  width = imageSize(absolutePath)?.width;
+  url = path.join(baseUrl, src);
+}
+
 ---
 
 <style>
@@ -28,14 +34,17 @@ const { width } = imageSize(absolutePath);
 </style>
 
 <Figure>
-  <div class="Image" style={`--image-width: ${width}px; --image-density: ${density ?? 1}`}>
+  <div
+    class="Image"
+    style={width && density && `--image-width: ${width}px; --image-density: ${density}`}
+  >
     <a
       class="Image__link"
       title="Expand image"
-      href={path.join(basePath, src)}
+      href={url}
       target="_blank"
     >
-      <img src={path.join(basePath, src)} {alt} />
+      <img src={url} {alt} />
     </a>
   </div>
   <Fragment slot="caption">{caption}</Fragment>
