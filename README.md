@@ -4,7 +4,7 @@ This repository contains a custom theme and a set of reusable components for [As
 
 Astro is a generic SSG and (unlike projects like MkDocs or mdBook) isn’t intended to be used for documentation sites exclusively. The advantage of this approach is that we have more flexibility to customize how the documentation is rendered and can for example include interactive elements in the documentation or auto-generate pages. For example, we auto-generate a documentation page for every schema ([like this one](https://alephdata.github.io/followthemoney/explorer/schemata/Company/)) in the FollowTheMoney data model based on the schema definition.
 
-The main disadvantage of this approach is that we have had to implement a few features ourselves that are common to every documentation site (for example, navigation, multi-column layout, …).
+The main disadvantage of this approach is that we have had to implement a few features ourselves that are common to every documentation site (for example, navigation, multi-column layout, …). This repository exists to share the boilerplate between all of our documentation sites.
 
 ## Seting up a new site
 
