@@ -42,6 +42,8 @@ export default ({ markdownPlugins = [], mdxPlugins = [] } = {}) => [
         Code: componentsEntry,
         Figure: componentsEntry,
         Image: componentsEntry,
+        Steps: componentsEntry,
+        Step: componentsEntry,
       }),
       ...mdxPlugins,
     ],

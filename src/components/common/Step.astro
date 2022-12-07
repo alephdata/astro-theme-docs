@@ -1,0 +1,36 @@
+---
+import RichContent from './RichContent.astro';
+---
+
+<style>
+  .Step {
+    counter-increment: step;
+    position: relative;
+    padding-left: var(--space-lg);
+  }
+
+  .Step::before {
+    content: counter(step);
+    position: absolute;
+    top: calc(0.5 * (1rem * var(--line-height) - var(--space)));
+    left: 0;
+
+    display: block;
+    width: var(--space);
+    height: var(--space);
+    text-align: center;
+    line-height: var(--space);
+
+    background-color: var(--color-fg-emphasis);
+    color: var(--color-bg-default);
+    border-radius: 50%;
+    font-weight: 900;
+    font-size: var(--font-size-sm);
+  }
+</style>
+
+<li class="Step">
+  <RichContent>
+    <slot />
+  </RichContent>
+</li>

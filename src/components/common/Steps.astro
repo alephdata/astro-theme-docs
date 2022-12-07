@@ -1,0 +1,14 @@
+<style>
+  .Steps__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space);
+    counter-reset: step;
+  }
+</style>
+
+<div class="Steps">
+  <ol class="Steps__list">
+    <slot />
+  </ol>
+</div>

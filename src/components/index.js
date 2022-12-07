@@ -8,6 +8,8 @@ export { default as Code } from './common/Code.astro';
 export { default as Popover } from './common/Popover.astro';
 export { default as Figure } from './common/Figure.astro';
 export { default as Image } from './common/Image.astro';
+export { default as Steps } from './common/Steps.astro';
+export { default as Step } from './common/Step.astro';
 
 export { default as DocsNav } from './docs/DocsNav.astro';
 
