@@ -13,6 +13,6 @@ const { options, headings, content } = Astro.props;
     <DocsNav nav={options.nav.sidebar} />
   </ExpandableSidebar>
   <slot />
-  {headings.length > 0 && <TocNav slot="toc" headings={headings} />}
+  <TocNav slot="toc" headings={headings} />
   <Meta slot="meta" options={options.git} path={content.file} />
 </DefaultLayout>

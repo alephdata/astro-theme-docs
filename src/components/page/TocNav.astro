@@ -24,20 +24,18 @@ for (const heading of headings) {
 
 <style></style>
 
-<div>
-  {
-    headings.length > 0 && (
-      <Fragment>
-        <h2 id="toc-nav-heading" class="section-heading">
-          On this page
-        </h2>
+{items.length > 0 && (
+  <div>
+    <Fragment>
+      <h2 id="toc-nav-heading" class="section-heading">
+        On this page
+      </h2>
 
-        <Nav aria-labelledby="toc-nav-heading">
-          {items.map((item) => (
-            <NavItem {...item} showChildren={true} />
-          ))}
-        </Nav>
-      </Fragment>
-    )
-  }
-</div>
+      <Nav aria-labelledby="toc-nav-heading">
+        {items.map((item) => (
+          <NavItem {...item} showChildren={true} />
+        ))}
+      </Nav>
+    </Fragment>
+  </div>
+)}
