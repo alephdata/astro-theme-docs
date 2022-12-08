@@ -45,7 +45,8 @@ code:not(pre code) {
 .alpha,
 .beta,
 .gamma,
-.delta {
+.delta,
+.section-heading {
   margin-block-end: 0.5em;
 }
 
@@ -72,6 +73,12 @@ code:not(pre code) {
 }
 
 .delta {
+  font-size: var(--font-size-delta);
+  color: var(--color-fg-emphasis);
+  font-weight: 600;
+}
+
+.section-heading {
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-weight: 600;

@@ -1,6 +1,6 @@
 import { visit } from 'unist-util-visit';
 
-const HEADING_CLASSES = ['alpha', 'beta', 'gamma'];
+const HEADING_CLASSES = ['alpha', 'beta', 'gamma', 'delta'];
 
 /*
  * Adds classes to headings and other content elements. For example, `<h2>` becomes
