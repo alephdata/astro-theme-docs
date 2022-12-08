@@ -2,6 +2,24 @@
 import Nav from '../page/Nav.astro';
 import NavItem from '../page/NavItem.astro';
 const { headings } = Astro.props;
+
+const items = [];
+
+for (const heading of headings) {
+  const item = {
+    title: heading.text,
+    link: `#${heading.slug}`,
+    children: [],
+  };
+
+  if (heading.depth === 2) {
+    items.push(item);
+  }
+
+  if (heading.depth === 3) {
+    items[items.length - 1].children.push(item);
+  }
+}
 ---
 
 <style></style>
@@ -15,8 +33,8 @@ const { headings } = Astro.props;
         </h2>
 
         <Nav aria-labelledby="toc-nav-heading">
-          {headings.map(({ text, slug }) => (
-            <NavItem link={`#${slug}`} title={text} />
+          {items.map((item) => (
+            <NavItem {...item} showChildren={true} />
           ))}
         </Nav>
       </Fragment>

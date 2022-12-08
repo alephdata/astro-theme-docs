@@ -7,7 +7,9 @@ const {
   external = false,
   children = [],
 } = Astro.props;
-const showChildren = active || children.some((child) => child.active);
+
+const showChildren =
+  active || children.some((child) => child.active) || Astro.props.showChildren;
 ---
 
 <style>
@@ -42,7 +44,7 @@ const showChildren = active || children.some((child) => child.active);
   }
 
   .NavItem__children {
-    margin-block-start: var(--space-xxs);
+    margin-block: var(--space-xxs);
     padding-inline-start: var(--space-sm);
     border-left: 1px solid var(--color-border-default);
     font-size: var(--font-size-sm);

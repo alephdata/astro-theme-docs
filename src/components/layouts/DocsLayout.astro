@@ -5,8 +5,7 @@ import DocsNav from '../docs/DocsNav.astro';
 import TocNav from '../page/TocNav.astro';
 import Meta from '../page/Meta.astro';
 
-const headings = Astro.props.headings.filter(({ depth }) => depth === 2);
-const { options } = Astro.props;
+const { options, headings, content } = Astro.props;
 ---
 
 <DefaultLayout layout="docs" {...Astro.props}>
@@ -15,5 +14,5 @@ const { options } = Astro.props;
   </ExpandableSidebar>
   <slot />
   {headings.length > 0 && <TocNav slot="toc" headings={headings} />}
-  <Meta slot="meta" options={options.git} path={Astro.props.content.file} />
+  <Meta slot="meta" options={options.git} path={content.file} />
 </DefaultLayout>
