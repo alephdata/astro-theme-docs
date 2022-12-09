@@ -18,6 +18,14 @@ const { size = null } = Astro.props;
   .Stack-xl {
     --stack-size: var(--space-xl);
   }
+
+  .Stack-sm {
+    --stack-size: var(--space-sm);
+  }
+
+  .Stack-xs {
+    --stack-size: var(--space-xs);
+  }
 </style>
 
 <div class:list={['Stack', size && `Stack-${size}`]}>
