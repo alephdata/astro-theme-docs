@@ -51,4 +51,5 @@ export default ({ markdownPlugins = [], mdxPlugins = [] } = {}) => {
   return [themeIntegration, mdxIntegration];
 };
 
+export * from './utils/git.js';
 export { defaultClasses, injectComponent, wrapContents, customCodeComponent };
