@@ -3,7 +3,7 @@ import url from 'node:url';
 import mdx from '@astrojs/mdx';
 
 import defaultClasses from './plugins/defaultClasses.js';
-import injectComponents from './plugins/injectComponents.js';
+import injectComponent from './plugins/injectComponent.js';
 import wrapContents from './plugins/wrapContents.js';
 import customCodeComponent from './plugins/customCodeComponent.js';
 import fixAbsoluteLinks from './plugins/fixAbsoluteLinks.js';
@@ -11,8 +11,8 @@ import fixAbsoluteLinks from './plugins/fixAbsoluteLinks.js';
 const srcRoot = path.dirname(url.fileURLToPath(import.meta.url));
 const componentsEntry = path.join(srcRoot, 'components/index.js');
 
-export default ({ markdownPlugins = [], mdxPlugins = [] } = {}) => [
-  {
+export default ({ markdownPlugins = [], mdxPlugins = [] } = {}) => {
+  const themeIntegration = {
     name: 'astro-theme-docs',
     hooks: {
       'astro:config:setup': ({ config, updateConfig }) => {
@@ -30,24 +30,25 @@ export default ({ markdownPlugins = [], mdxPlugins = [] } = {}) => [
         });
       },
     },
-  },
-  mdx({
+  };
+
+  const mdxIntegration = mdx({
     remarkPlugins: [
       wrapContents('RichContent'),
-      injectComponents({
-        RichContent: componentsEntry,
-        Callout: componentsEntry,
-        LinkCard: componentsEntry,
-        Youtube: componentsEntry,
-        Code: componentsEntry,
-        Figure: componentsEntry,
-        Image: componentsEntry,
-        Steps: componentsEntry,
-        Step: componentsEntry,
-      }),
+      injectComponent('RichContent', componentsEntry, 'named'),
+      injectComponent('Callout', componentsEntry, 'named'),
+      injectComponent('LinkCard', componentsEntry, 'named'),
+      injectComponent('Youtube', componentsEntry, 'named'),
+      injectComponent('Code', componentsEntry, 'named'),
+      injectComponent('Figure', componentsEntry, 'named'),
+      injectComponent('Image', componentsEntry, 'named'),
+      injectComponent('Steps', componentsEntry, 'named'),
+      injectComponent('Step', componentsEntry, 'named'),
       ...mdxPlugins,
     ],
-  }),
-];
+  });
 
-export { defaultClasses, injectComponents, wrapContents, customCodeComponent };
+  return [themeIntegration, mdxIntegration];
+};
+
+export { defaultClasses, injectComponent, wrapContents, customCodeComponent };
