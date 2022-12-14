@@ -1,8 +1,9 @@
 ---
 import Wrapper from './Wrapper.astro';
+import AlgoliaSearch from './AlgoliaSearch.astro';
 import HeaderNav from './HeaderNav.astro';
 
-const { title, nav } = Astro.props;
+const { title, nav, search } = Astro.props;
 ---
 
 <style>
@@ -33,6 +34,7 @@ const { title, nav } = Astro.props;
 <header class="Header">
   <Wrapper padded className="Header__wrapper">
     <a href={Astro.site?.pathname || '/'} class="Header__title">{title}</a>
-    <HeaderNav nav={nav} />
+    {search && <AlgoliaSearch config={search} />}
+    {nav.items.length > 0 && <HeaderNav nav={nav} />}
   </Wrapper>
 </header>

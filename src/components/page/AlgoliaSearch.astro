@@ -1,0 +1,110 @@
+---
+const { config = {} } = Astro.props;
+---
+
+<script>
+  import docsearch from '@docsearch/js';
+  import '@docsearch/css';
+
+  window.addEventListener('load', () => {
+    const container = document.querySelector('#algolia-docsearch');
+
+    if (!container) {
+      return;
+    }
+
+    docsearch({
+      container,
+      appId: container.dataset.algoliaAppId,
+      apiKey: container.dataset.algoliaApiKey,
+      indexName: container.dataset.algoliaIndexName,
+    });
+  });
+</script>
+
+<style is:global>
+  .DocSearch {
+    --docsearch-primary-color: var(--color-fg-primary);
+    --docsearch-text-color: var(--color-fg-default);
+    --docsearch-muted-color: var(--color-fg-muted);
+    --docsearch-logo-color: var(--color-fg-muted);
+    --docsearch-highlight-color: var(--color-fg-emphasis);
+
+    --docsearch-searchbox-background: var(--color-bg-default);
+    --docsearch-searchbox-focus-background: var(--color-bg-elevated);
+    --docsearch-searchbox-shadow: inset 0 0 0 2px var(--color-border-primary);
+
+    --docsearch-container-background: rgba(240, 240, 240, .85);
+
+    --docsearch-modal-background: var(--color-bg-elevated);
+    --docsearch-modal-shadow: 0 1px 3px rgba(0, 0, 0, .2), 0 5px 20px rgba(0, 0, 0, 0.1);
+
+    --docsearch-hit-color: var(--color-fg-default);
+    --docsearch-hit-background: var(--color-bg-subtle);
+    --docsearch-hit-shadow: none;
+
+    --docsearch-footer-background: transparent;
+    --docsearch-footer-shadow: none;
+
+    --docsearch-key-gradient: var(--color-bg-elevated);
+    --docsearch-key-shadow: inset 0 0 0 1px var(--color-border-default);
+  }
+
+  @media screen and (prefers-color-scheme: dark) {
+    .DocSearch {
+      --docsearch-container-background: rgba(0, 0, 0, 0.85);
+    }
+  }
+
+  .DocSearch-Button {
+    margin-left: 0;
+    box-shadow: inset 0 0 0 1px var(--color-border-default);
+  }
+
+  .DocSearch-Button .DocSearch-Search-Icon {
+    color: inherit !important;
+  }
+
+  .DocSearch-Hit[aria-selected="true"] a {
+    background-color: var(--color-border-primary);
+    border-color: transparent;
+  }
+
+  .DocSearch-Hit-source {
+    position: static;
+  }
+
+  .DocSearch-Hit-icon {
+    display: none;
+  }
+
+  .DocSearch-Hit-content-wrapper {
+    margin-left: 0;
+  }
+
+  .DocSearch-Hit-title {
+    font-weight: 400;
+  }
+
+  .DocSearch-Hit-title mark {
+    font-weight: 600;
+    background-color: var(--color-bg-primary);
+  }
+
+  .DocSearch-Footer {
+    border-top: 1px solid var(--color-border-default);
+  }
+
+  .DocSearch-Logo svg path,
+  .DocSearch-Logo svg rect {
+    fill: var(--docsearch-logo-color) !important;
+  }
+</style>
+
+<div
+  class="HeaderSearch"
+  id="algolia-docsearch"
+  data-algolia-app-id={config.appId}
+  data-algolia-api-key={config.apiKey}
+  data-algolia-index-name={config.indexName}
+></div>

@@ -94,7 +94,11 @@ const siteTitle = options.title;
   <body>
     <SkipLink id="#content">Skip to content</SkipLink>
 
-    <Header title={options.title} nav={options.nav.header} />
+    <Header
+      title={options.title}
+      nav={options.nav.header}
+      search={options.search}
+    />
 
     <div class="DefaultLayout">
       <Wrapper className="DefaultLayout__wrapper" padded>
