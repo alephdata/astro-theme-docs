@@ -18,23 +18,37 @@ const { title, nav, search } = Astro.props;
 
   .Header__wrapper {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: var(--header-height);
   }
 
   .Header__title {
+    margin-inline-end: var(--space-lg);
     font-weight: 600;
     color: var(--color-fg-emphasis);
     text-decoration: none;
+  }
+
+  .Header__search {
+    margin-inline-start: auto;
   }
 </style>
 
 <header class="Header">
   <Wrapper padded className="Header__wrapper">
     <a href={Astro.site?.pathname || '/'} class="Header__title">{title}</a>
-    {search && <AlgoliaSearch config={search} />}
-    {nav.items.length > 0 && <HeaderNav nav={nav} />}
+    
+    {nav.items.length > 0 && (
+      <div className="Header__nav">
+        <HeaderNav nav={nav} />
+      </div>
+    )}
+
+    {search && (
+      <div class="Header__search">
+        <AlgoliaSearch config={search} />
+      </div>
+    )}
   </Wrapper>
 </header>
