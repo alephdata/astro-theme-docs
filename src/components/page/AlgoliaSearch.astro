@@ -65,6 +65,27 @@ const { config = {} } = Astro.props;
     color: inherit !important;
   }
 
+  .DocSearch-Button-Keys {
+    width: auto;
+    min-width: 0;
+    margin-inline-end: 0.5em;
+    padding-inline: 0.25em;
+    border: 1px solid var(--color-border-default);
+    background-color: var(--color-bg-elevated);
+    border-radius: var(--radius);
+    letter-spacing: 0.25em;
+    line-height: 1.25em;
+  }
+
+  .DocSearch-Button .DocSearch-Button-Key {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    width: auto;
+  }
+
   .DocSearch-Hit[aria-selected="true"] a {
     background-color: var(--color-border-primary);
     border-color: transparent;
@@ -102,7 +123,6 @@ const { config = {} } = Astro.props;
 </style>
 
 <div
-  class="HeaderSearch"
   id="algolia-docsearch"
   data-algolia-app-id={config.appId}
   data-algolia-api-key={config.apiKey}
