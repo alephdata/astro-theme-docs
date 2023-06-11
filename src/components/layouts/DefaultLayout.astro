@@ -1,163 +1,141 @@
 ---
-import Header from '../page/Header.astro';
+import Skeleton from './Skeleton.astro';
 import Wrapper from '../page/Wrapper.astro';
-import SkipLink from '../page/SkipLink.astro';
 import Stack from '../common/Stack.astro';
-
-import './styles/variables.css';
-import './styles/base.css';
-import './styles/typography.css';
-import './styles/util.css';
 
 const { options, layout = 'default' } = Astro.props;
 const title = Astro.props.title || Astro.props.content?.title;
-const siteTitle = options.title;
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>{title} – {siteTitle}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  .DefaultLayout__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
 
-    <style>
-      .DefaultLayout__wrapper {
-        display: flex;
-        flex-direction: column;
+  .DefaultLayout__content {
+    order: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    margin-block: var(--space);
+  }
+
+  .DefaultLayout__sidebar {
+    /*
+     * This is a hack to ensure the horizontal overflow of
+     * nested navigation components are visible.
+     */
+    margin-inline: calc(-1 * var(--space-xs));
+    padding-inline: var(--space-xs);
+  }
+
+  .DefaultLayout__left {
+    order: 1;
+  }
+
+  .DefaultLayout__right {
+    display: none;
+    order: 3;
+  }
+
+  @media screen and (min-width: 46rem) {
+    .DefaultLayout__wrapper {
+      flex-direction: row;
+      column-gap: var(--space-lg);
+    }
+
+    .DefaultLayout__content {
+      margin-block: var(--space-lg);
+      width: 75%;
+    }
+
+    .DefaultLayout__sidebar {
+      position: sticky;
+      top: var(--header-height);
+      overflow-y: auto;
+      scroll-padding-block-start: var(--space);
+
+      flex-grow: 0;
+      flex-shrink: 0;
+
+      width: 25%;
+      height: calc(100vh - var(--header-height));
+      padding-block: var(--space-xl);
+    }
+  }
+
+  @media screen and (min-width: 64rem) {
+    .DefaultLayout__content {
+      width: 60%;
+    }
+
+    .DefaultLayout__left,
+    .DefaultLayout__right {
+      display: block;
+      width: 20%;
+    }
+  }
+</style>
+
+<Skeleton {options} {title}>
+  <div class="DefaultLayout">
+    <Wrapper className="DefaultLayout__wrapper" padded>
+      {
+        Astro.slots.sidebar && (
+          <div class="DefaultLayout__sidebar DefaultLayout__left" id="main-sidebar">
+            <slot name="sidebar" />
+          </div>
+        )
       }
 
-      .DefaultLayout__content {
-        order: 1;
-        flex-grow: 1;
-        flex-shrink: 1;
-        min-width: 0;
-        margin-block: var(--space);
+      {
+        (Astro.slots.toc || Astro.slots.meta) && (
+          <div class="DefaultLayout__sidebar DefaultLayout__right">
+            <Stack>
+              <slot name="toc" />
+              <slot name="meta" />
+            </Stack>
+          </div>
+        )
       }
 
-      .DefaultLayout__sidebar {
-        /*
-         * This is a hack to ensure the horizontal overflow of
-         * nested navigation components are visible.
-         */
-        margin-inline: calc(-1 * var(--space-xs));
-        padding-inline: var(--space-xs);
+      <main class="DefaultLayout__content" id="content">
+        <Wrapper size="prose">
+          <slot />
+        </Wrapper>
+      </main>
+    </Wrapper>
+  </div>
+
+  <script is:inline define:vars={{ layout }}>
+    // Persist the sidebar scroll position on subsequent page views using the
+    // same layout. The same layout usually renders the same sidebar contents,
+    // e.g. the DocsLayout always renders the DocsNav.
+    (function () {
+      const STORAGE_KEY = 'sidebar-scroll-top';
+      const sidebar = document.querySelector('#main-sidebar');
+
+      if (!layout || !sidebar) {
+        return;
       }
 
-      .DefaultLayout__left {
-        order: 1;
+      // Store the current scroll position when user navigates away or switches tabs.
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+          const value = JSON.stringify({ [layout]: sidebar.scrollTop });
+          localStorage.setItem(STORAGE_KEY, value);
+        }
+      });
+
+      // Restore scroll position on page load.
+      let scrollTop = localStorage.getItem(STORAGE_KEY);
+      scrollTop = scrollTop && JSON.parse(scrollTop)[layout];
+      localStorage.removeItem(STORAGE_KEY);
+
+      if (scrollTop) {
+        sidebar.scrollTo(0, scrollTop);
       }
-
-      .DefaultLayout__right {
-        display: none;
-        order: 3;
-      }
-
-      @media screen and (min-width: 46rem) {
-        .DefaultLayout__wrapper {
-          flex-direction: row;
-          column-gap: var(--space-lg);
-        }
-
-        .DefaultLayout__content {
-          margin-block: var(--space-lg);
-          width: 75%;
-        }
-
-        .DefaultLayout__sidebar {
-          position: sticky;
-          top: var(--header-height);
-          overflow-y: auto;
-          scroll-padding-block-start: var(--space);
-
-          flex-grow: 0;
-          flex-shrink: 0;
-
-          width: 25%;
-          height: calc(100vh - var(--header-height));
-          padding-block: var(--space-xl);
-        }
-      }
-
-      @media screen and (min-width: 64rem) {
-        .DefaultLayout__content {
-          width: 60%;
-        }
-
-        .DefaultLayout__left,
-        .DefaultLayout__right {
-          display: block;
-          width: 20%;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <SkipLink id="#content">Skip to content</SkipLink>
-
-    <Header
-      title={options.title}
-      nav={options.nav.header}
-      search={options.search}
-    />
-
-    <div class="DefaultLayout">
-      <Wrapper className="DefaultLayout__wrapper" padded>
-        {
-          Astro.slots.sidebar && (
-            <div class="DefaultLayout__sidebar DefaultLayout__left" id="main-sidebar">
-              <slot name="sidebar" />
-            </div>
-          )
-        }
-
-        {
-          (Astro.slots.toc || Astro.slots.meta) && (
-            <div class="DefaultLayout__sidebar DefaultLayout__right">
-              <Stack>
-                <slot name="toc" />
-                <slot name="meta" />
-              </Stack>
-            </div>
-          )
-        }
-
-        <main class="DefaultLayout__content" id="content">
-          <Wrapper size="prose">
-            <slot />
-          </Wrapper>
-        </main>
-      </Wrapper>
-    </div>
-
-    <script is:inline define:vars={{ layout }}>
-      // Persist the sidebar scroll position on subsequent page views using the
-      // same layout. The same layout usually renders the same sidebar contents,
-      // e.g. the DocsLayout always renders the DocsNav.
-      (function () {
-        const STORAGE_KEY = 'sidebar-scroll-top';
-        const sidebar = document.querySelector('#main-sidebar');
-
-        if (!layout || !sidebar) {
-          return;
-        }
-
-        // Store the current scroll position when user navigates away or switches tabs.
-        document.addEventListener('visibilitychange', () => {
-          if (document.visibilityState === 'hidden') {
-            const value = JSON.stringify({ [layout]: sidebar.scrollTop });
-            localStorage.setItem(STORAGE_KEY, value);
-          }
-        });
-
-        // Restore scroll position on page load.
-        let scrollTop = localStorage.getItem(STORAGE_KEY);
-        scrollTop = scrollTop && JSON.parse(scrollTop)[layout];
-        localStorage.removeItem(STORAGE_KEY);
-
-        if (scrollTop) {
-          sidebar.scrollTo(0, scrollTop);
-        }
-      })();
-    </script>
-  </body>
-</html>
+    })();
+  </script>
+</Skeleton>

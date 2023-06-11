@@ -1,0 +1,30 @@
+---
+import Header from '../page/Header.astro';
+import SkipLink from '../page/SkipLink.astro';
+
+import './styles/variables.css';
+import './styles/base.css';
+import './styles/typography.css';
+import './styles/util.css';
+
+const { options, title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title} – {options.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <SkipLink id="#content">Skip to content</SkipLink>
+
+    <Header
+      title={options.title}
+      nav={options.header}
+      search={options.search}
+    />
+
+    <slot />
+  </body>
+</html>

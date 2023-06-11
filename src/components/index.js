@@ -24,5 +24,6 @@ export { default as TocNav } from './page/TocNav.astro';
 export { default as Wrapper } from './page/Wrapper.astro';
 export { default as SkipLink } from './page/SkipLink.astro';
 
+export { default as Skeleton } from './layouts/Skeleton.astro';
 export { default as DefaultLayout } from './layouts/DefaultLayout.astro';
 export { default as DocsLayout } from './layouts/DocsLayout.astro';
