@@ -9,6 +9,13 @@ a {
   text-decoration-color: var(--color-border-emphasis);
 }
 
+.arrow-link::after {
+  content: '→';
+  display: inline-block;
+  text-decoration: none;
+  margin-inline-start: 0.25em;
+}
+
 table {
   width: 100%;
   border-collapse: separate;
