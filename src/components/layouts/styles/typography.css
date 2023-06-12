@@ -53,6 +53,7 @@ code:not(pre code) {
 .gamma,
 .delta,
 .section-heading {
+  hyphens: none;
   margin-block-end: 0.5em;
 }
 
