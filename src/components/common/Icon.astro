@@ -1,4 +1,26 @@
 ---
+// MIT License
+
+// Copyright (c) 2020 Refactoring UI Inc.
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 const { icon, className, label } = Astro.props;
 ---
 
@@ -97,6 +119,18 @@ const { icon, className, label } = Astro.props;
           clip-rule="evenodd"
         />
         <path d="M10.748 13.93l2.523 2.523a9.987 9.987 0 01-3.27.547c-4.258 0-7.894-2.66-9.337-6.41a1.651 1.651 0 010-1.186A10.007 10.007 0 012.839 6.02L6.07 9.252a4 4 0 004.678 4.678z" />
+      </svg>
+    )
+  }
+
+  {
+    icon === 'information-circle' && (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+        <path
+          fill-rule="evenodd"
+          d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8Zm1 11.5c0 .3-.2.5-.5.5h-1a.5.5 0 0 1-.5-.5v-4c0-.3.2-.5.5-.5h1c.3 0 .5.2.5.5v4ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"
+          clip-rule="evenodd"
+        />
       </svg>
     )
   }

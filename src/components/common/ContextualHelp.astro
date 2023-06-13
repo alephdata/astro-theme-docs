@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+import Popover from './Popover.astro';
+---
+
+<style>
+  .ContextualHelp__icon {
+    color: var(--color-fg-muted);
+    opacity: 0.5;
+  }
+
+  .ContextualHelp__target {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: var(--color-border-emphasis);
+    text-decoration-thickness: 1px;
+  }
+</style>
+
+<Popover>
+  <span class="ContextualHelp__target"><slot /></span>
+  <Icon className="ContextualHelp__icon" icon="information-circle" />
+  <Fragment slot="content">
+    <slot name="content" />
+  </Fragment>
+</Popover>
