@@ -42,6 +42,7 @@ export default ({ markdownPlugins = [], mdxPlugins = [] } = {}) => {
       injectComponent('Code', componentsEntry, 'named'),
       injectComponent('Figure', componentsEntry, 'named'),
       injectComponent('Image', componentsEntry, 'named'),
+      injectComponent('Video', componentsEntry, 'named'),
       injectComponent('Steps', componentsEntry, 'named'),
       injectComponent('Step', componentsEntry, 'named'),
       ...mdxPlugins,

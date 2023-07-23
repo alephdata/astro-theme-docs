@@ -1,0 +1,36 @@
+---
+import Figure from './Figure.astro';
+
+const { src, type, caption, preset, ...rest } = Astro.props;
+
+let props = {
+  controls: true,
+  preload: 'none',
+};
+
+if (preset === 'gif') {
+  props = {
+    controls: false,
+    loop: true,
+    playsinline: true,
+    muted: true,
+    autoplay: true,
+  };
+}
+
+props = { ...props, ...rest };
+---
+
+<style>
+  .Video {
+    display: block;
+    max-width: 100%;
+  }
+</style>
+
+<Figure>
+  <video class="Video" {...props}>
+    <source src={src} type={type} />
+  </video>
+  {caption && <Fragment slot="caption">{caption}</Fragment>}
+</Figure>
