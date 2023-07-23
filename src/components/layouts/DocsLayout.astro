@@ -10,7 +10,7 @@ const { options, headings, content } = Astro.props;
 
 <DefaultLayout layout="docs" {...Astro.props}>
   <ExpandableSidebar slot="sidebar">
-    <DocsNav nav={options.nav.sidebar} />
+    <DocsNav nav={options.sidebar} />
   </ExpandableSidebar>
   <slot />
   <TocNav slot="toc" headings={headings} />
