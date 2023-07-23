@@ -13,10 +13,9 @@ if (src.startsWith('/')) {
   const root = process.cwd();
   const absolutePath = path.join(root, 'public', src);
   const baseUrl = Astro.site?.pathname || '';
-  dimensions = imageSize(absolutePath)
+  dimensions = imageSize(absolutePath);
   url = path.join(baseUrl, src);
 }
-
 ---
 
 <style>

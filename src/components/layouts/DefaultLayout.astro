@@ -83,7 +83,10 @@ const title = Astro.props.title || Astro.props.content?.title;
     <Wrapper className="DefaultLayout__wrapper" padded>
       {
         Astro.slots.sidebar && (
-          <div class="DefaultLayout__sidebar DefaultLayout__left" id="main-sidebar">
+          <div
+            class="DefaultLayout__sidebar DefaultLayout__left"
+            id="main-sidebar"
+          >
             <slot name="sidebar" />
           </div>
         )

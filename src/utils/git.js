@@ -19,7 +19,9 @@ export async function getGitAbsolutePath(relativePath) {
 
 export async function getGitLastUpdated(path, branch = 'main') {
   path = await getGitAbsolutePath(path);
-  const { stdout } = await git(`log -1 --pretty="format:%cs" --date=short -- ${branch} ${path}`);
+  const { stdout } = await git(
+    `log -1 --pretty="format:%cs" --date=short -- ${branch} ${path}`
+  );
   return stdout.trim();
 }
 
@@ -32,7 +34,9 @@ export async function getGitFirstTag(path) {
 
 export async function getGitFirstCommit(path) {
   path = await getGitAbsolutePath(path);
-  const { stdout } = await git(`log --reverse --diff-filter=A --pretty=format:"%h" -- ${path}`);
+  const { stdout } = await git(
+    `log --reverse --diff-filter=A --pretty=format:"%h" -- ${path}`
+  );
   return stdout.split('\n')[0].trim();
 }
 

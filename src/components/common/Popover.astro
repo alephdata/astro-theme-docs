@@ -32,7 +32,8 @@ const content = await Astro.slots.render('content');
     border-radius: var(--radius);
     border: var(--tippy-border-width) solid var(--tippy-color-border);
 
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(0 3px 15px rgba(0, 0, 0, 0.1));
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1))
+      drop-shadow(0 3px 15px rgba(0, 0, 0, 0.1));
   }
 
   .tippy-svg-arrow > svg:first-child {

@@ -22,9 +22,7 @@ function importNode(name, path, type) {
         body: [
           {
             type: 'ImportDeclaration',
-            specifiers: [
-              importSpecifier(name, type),
-            ],
+            specifiers: [importSpecifier(name, type)],
             source: {
               type: 'Literal',
               value: path,
