@@ -1,3 +1,9 @@
+<style>
+  ul :global(li + li) {
+    margin-block-start: var(--space-xxs);
+  }
+</style>
+
 <nav {...Astro.props}>
   <ul>
     <slot />
