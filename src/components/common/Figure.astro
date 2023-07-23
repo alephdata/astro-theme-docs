@@ -9,7 +9,11 @@
 
 <figure class="Figure">
   <slot />
-  <figcaption class="Figure__caption">
-    <slot name="caption" />
-  </figcaption>
+  {
+    Object.keys(Astro.slots.render('caption')).length > 0 && (
+      <figcaption class="Figure__caption">
+        <slot name="caption" />
+      </figcaption>
+    )
+  }
 </figure>
