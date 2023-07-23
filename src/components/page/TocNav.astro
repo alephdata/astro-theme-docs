@@ -22,20 +22,103 @@ for (const heading of headings) {
 }
 ---
 
-<style></style>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.TocNav').forEach((toc) => {
+      const itemsByHeading = new Map();
+      const intersectingHeadings = new Set();
 
-{items.length > 0 && (
-  <div>
-    <Fragment>
-      <h2 id="toc-nav-heading" class="section-heading">
-        On this page
-      </h2>
+      const setActiveItem = (heading) => {
+        const item = itemsByHeading.get(heading);
 
-      <Nav aria-labelledby="toc-nav-heading">
-        {items.map((item) => (
-          <NavItem {...item} showChildren={true} />
-        ))}
-      </Nav>
-    </Fragment>
-  </div>
-)}
+        if (!item) {
+          return;
+        }
+
+        toc.querySelectorAll('.NavItem').forEach((item) => {
+          item.classList.remove('NavItem--active');
+        });
+
+        item.classList.add('NavItem--active');
+        item.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'nearest',
+        });
+      };
+
+      const onIntersection = (entries) => {
+        if (entries.length <= 0) {
+          return;
+        }
+
+        for (const entry of entries) {
+          const heading = entry.target;
+
+          if (entry.isIntersecting) {
+            intersectingHeadings.add(heading);
+          } else {
+            intersectingHeadings.delete(heading);
+          }
+        }
+
+        const headings = Array.from(intersectingHeadings).sort((a, b) => {
+          const value = a.compareDocumentPosition(b);
+
+          if (value === Node.DOCUMENT_POSITION_PRECEDING) {
+            return 1;
+          }
+
+          if (value === Node.DOCUMENT_POSITION_FOLLOWING) {
+            return -1;
+          }
+
+          return 0;
+        });
+
+        setActiveItem(headings[0]);
+      };
+
+      const observer = new IntersectionObserver(onIntersection, {
+        root: null,
+        rootMargin: '-50px 0px -50%',
+        threshold: [0, 1],
+      });
+
+      toc.querySelectorAll('.NavItem').forEach((item) => {
+        const url = new URL(item.querySelector('a').href);
+
+        if (!url) {
+          return;
+        }
+
+        const heading = document.querySelector(url.hash);
+
+        if (!heading) {
+          return;
+        }
+
+        itemsByHeading.set(heading, item);
+        observer.observe(heading);
+      });
+    });
+  });
+</script>
+
+{
+  items.length > 0 && (
+    <div class="TocNav">
+      <Fragment>
+        <h2 id="toc-nav-heading" class="section-heading">
+          On this page
+        </h2>
+
+        <Nav aria-labelledby="toc-nav-heading">
+          {items.map((item) => (
+            <NavItem {...item} showChildren={true} />
+          ))}
+        </Nav>
+      </Fragment>
+    </div>
+  )
+}
