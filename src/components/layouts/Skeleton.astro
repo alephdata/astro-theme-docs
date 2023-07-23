@@ -7,7 +7,7 @@ import './styles/base.css';
 import './styles/typography.css';
 import './styles/util.css';
 
-const { options, title } = Astro.props;
+const { options, title, translations } = Astro.props;
 ---
 
 <html lang="en">
@@ -23,6 +23,7 @@ const { options, title } = Astro.props;
       title={options.title}
       nav={options.header}
       search={options.search}
+      translations={options.translations}
     />
 
     <slot />

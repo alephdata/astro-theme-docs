@@ -34,10 +34,11 @@ const { config = {} } = Astro.props;
     --docsearch-searchbox-focus-background: var(--color-bg-elevated);
     --docsearch-searchbox-shadow: inset 0 0 0 2px var(--color-border-primary);
 
-    --docsearch-container-background: rgba(240, 240, 240, .85);
+    --docsearch-container-background: rgba(240, 240, 240, 0.85);
 
     --docsearch-modal-background: var(--color-bg-elevated);
-    --docsearch-modal-shadow: 0 1px 3px rgba(0, 0, 0, .2), 0 5px 20px rgba(0, 0, 0, 0.1);
+    --docsearch-modal-shadow: 0 1px 3px rgba(0, 0, 0, 0.2),
+      0 5px 20px rgba(0, 0, 0, 0.1);
 
     --docsearch-hit-color: var(--color-fg-default);
     --docsearch-hit-background: var(--color-bg-subtle);
@@ -57,12 +58,39 @@ const { config = {} } = Astro.props;
   }
 
   .DocSearch-Button {
+    height: auto;
+    line-height: var(--line-height);
+
+    padding: var(--space-xxs);
     margin-left: 0;
-    box-shadow: inset 0 0 0 1px var(--color-border-default);
+
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius) !important;
+    cursor: default !important;
+  }
+
+  @media screen and (min-width: 769px) {
+    .DocSearch-Button {
+      padding-inline-start: var(--space-sm);
+    }
+  }
+
+  .DocSearch-Button:hover,
+  .DocSearch-Button:focus {
+    box-shadow: none;
+    border-color: var(--color-border-emphasis);
+    background-color: var(--color-bg-default);
+  }
+
+  .DocSearch-Button:focus {
+    border-color: var(--color-border-primary);
+    outline: 1px solid var(--color-border-primary);
   }
 
   .DocSearch-Button .DocSearch-Search-Icon {
     color: inherit !important;
+    width: 1.125rem !important;
+    height: 1.125rem !important;
   }
 
   .DocSearch-Button-Keys {
@@ -86,7 +114,7 @@ const { config = {} } = Astro.props;
     width: auto;
   }
 
-  .DocSearch-Hit[aria-selected="true"] a {
+  .DocSearch-Hit[aria-selected='true'] a {
     background-color: var(--color-border-primary);
     border-color: transparent;
   }
@@ -127,4 +155,5 @@ const { config = {} } = Astro.props;
   data-algolia-app-id={config.appId}
   data-algolia-api-key={config.apiKey}
   data-algolia-index-name={config.indexName}
-></div>
+>
+</div>

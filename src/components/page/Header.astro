@@ -2,8 +2,9 @@
 import Wrapper from './Wrapper.astro';
 import AlgoliaSearch from './AlgoliaSearch.astro';
 import HeaderNav from './HeaderNav.astro';
+import LanguageSelector from '../common/LanguageSelector.astro';
 
-const { title, nav, search } = Astro.props;
+const { title, nav, search, translations } = Astro.props;
 ---
 
 <style>
@@ -24,31 +25,59 @@ const { title, nav, search } = Astro.props;
   }
 
   .Header__title {
-    margin-inline-end: var(--space-lg);
     font-weight: 600;
     color: var(--color-fg-emphasis);
     text-decoration: none;
   }
 
-  .Header__search {
-    margin-inline-start: auto;
+  .Header__nav {
+    margin-inline-end: auto;
+    margin-inline-start: var(--space-lg);
+  }
+
+  @media screen and (max-width: 520px) {
+    .Header__nav {
+      margin-inline-start: var(--space);
+      font-size: var(--font-size-sm);
+    }
+  }
+
+  .Header__translations + .Header__search {
+    margin-inline-start: var(--space-sm);
   }
 </style>
 
 <header class="Header">
   <Wrapper padded className="Header__wrapper">
-    <a href={Astro.site?.pathname || '/'} class="Header__title">{title}</a>
-    
-    {nav.items.length > 0 && (
-      <div className="Header__nav">
-        <HeaderNav nav={nav} />
-      </div>
-    )}
+    <a href={Astro.site?.pathname || '/'} class="Header__title" translate="no">
+      {title}
+    </a>
 
-    {search && (
-      <div class="Header__search">
-        <AlgoliaSearch config={search} />
-      </div>
-    )}
+    {
+      nav.items.length > 0 && (
+        <div class="Header__nav">
+          <HeaderNav nav={nav} />
+        </div>
+      )
+    }
+
+    {
+      translations && (
+        <div class="Header__translations">
+          <LanguageSelector
+            defaultLanguageName={translations.defaultLanguageName}
+            languages={translations.languages}
+          />
+        </div>
+      )
+    }
+
+    {
+      search && (
+        <div class="Header__search">
+          <AlgoliaSearch config={search} />
+        </div>
+      )
+    }
   </Wrapper>
 </header>
