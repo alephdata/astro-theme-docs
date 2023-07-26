@@ -11,7 +11,7 @@ const HEADING_CLASSES = ['alpha', 'beta', 'gamma', 'delta'];
  * effects compared to applying them using tag selectors (in which case they'd need to
  * be reset manually whenever the default styles are not needed).
  */
-export default function explorerLinks() {
+export default function defaultClasses() {
   return () => {
     return (tree) => {
       visit(tree, ['heading', 'list'], (node) => {
