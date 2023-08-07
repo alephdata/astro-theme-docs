@@ -1,6 +1,8 @@
 .node .label-container {
   fill: var(--color-bg-default);
   stroke: var(--color-border-default);
+  transition: 0.1s all ease-out;
+  transition-delay: 0.1s;
 }
 
 .node.clickable:hover .label-container {
@@ -15,6 +17,9 @@
 
 .node .nodeLabel {
   color: var(--color-fg-muted);
+  cursor: default;
+  transition: 0.1s all ease-out;
+  transition-delay: 0.1s;
 }
 
 .node-primary .nodeLabel {
@@ -28,6 +33,8 @@
 .flowchart-link {
   stroke-width: 1.5px;
   stroke: var(--color-fg-muted);
+  transition: 0.1s all ease-out;
+  transition-delay: 0.1s;
 }
 
 .marker {
@@ -42,4 +49,22 @@
 
 .dummy {
   display: none;
+}
+
+.active .node:not(.node-active) .label-container {
+  opacity: 0.5;
+}
+
+.active .node:not(.node-active) .nodeLabel {
+  opacity: 0.5;
+}
+
+.active .node.node-active .label-container {
+  opacity: 1;
+  fill: var(--color-bg-primary);
+  stroke: var(--color-border-primary);
+}
+
+.active .flowchart-link:not(.link-active) {
+  opacity: 0.25;
 }

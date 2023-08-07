@@ -2,7 +2,7 @@
 import Spinner from './Spinner.astro';
 
 const definition = Astro.props.content || Astro.slots.render();
-const { straightEdges } = Astro.props;
+const { straightEdges, highlightActive } = Astro.props;
 ---
 
 <script>
@@ -24,6 +24,76 @@ const { straightEdges } = Astro.props;
     }
   }
 
+  function highlightLinkedNodes(element) {
+    const root = element.querySelector('.root');
+    const nodes = element.querySelectorAll('.nodes .node');
+    const edges = element.querySelectorAll('.edgePaths path');
+
+    const idToElement = new Map();
+    const adjacentNodes = new Map();
+    const adjacentEdges = new Map();
+
+    for (const node of nodes) {
+      const id = node.id.replace(/^flowchart-/, '').replace(/-\d+$/, '');
+      idToElement.set(id, node);
+      adjacentNodes.set(node, new Set());
+      adjacentEdges.set(node, new Set());
+    }
+
+    for (const edge of edges) {
+      const classNames = [...edge.classList];
+
+      const startId = classNames
+        .find((className) => className.startsWith('LS-'))
+        .replace('LS-', '');
+
+      const endId = classNames
+        .find((className) => className.startsWith('LE-'))
+        .replace('LE-', '');
+
+      const startElement = idToElement.get(startId);
+      const endElement = idToElement.get(endId);
+
+      adjacentNodes.get(startElement).add(endElement);
+      adjacentNodes.get(endElement).add(startElement);
+
+      adjacentEdges.get(startElement).add(edge);
+      adjacentEdges.get(endElement).add(edge);
+    }
+
+    const rootActive = 'active';
+    const nodeActive = 'node-active';
+    const edgeActive = 'link-active';
+
+    for (const node of nodes) {
+      node.addEventListener('mouseover', () => {
+        node.classList.add(nodeActive);
+        root.classList.add(rootActive);
+
+        for (const adjacentNode of adjacentNodes.get(node)) {
+          adjacentNode.classList.add(nodeActive);
+        }
+
+        for (const adjacentEdge of adjacentEdges.get(node)) {
+          adjacentEdge.classList.add(edgeActive);
+        }
+      });
+
+      node.addEventListener('mouseout', () => {
+        node.classList.remove(nodeActive);
+        root.classList.remove(rootActive);
+
+        for (const adjacentNode of adjacentNodes.get(node)) {
+          adjacentNode.classList.remove(nodeActive);
+        }
+
+        for (const adjacentEdge of adjacentEdges.get(node)) {
+          adjacentEdge.classList.remove(edgeActive);
+        }
+      });
+    }
+  }
+
   mermaid.initialize({
     themeCSS,
     securityLevel: 'loose',
@@ -39,6 +109,10 @@ const { straightEdges } = Astro.props;
 
       if (parent.dataset.straightEdges === 'true') {
         makeStraightEdges(element);
+      }
+
+      if (parent.dataset.highlightActive === 'true') {
+        highlightLinkedNodes(element);
       }
 
       parent.dataset.rendered = 'true';
@@ -97,6 +171,7 @@ const { straightEdges } = Astro.props;
   <div
     class="Mermaid__graph"
     data-straight-edges={straightEdges ? 'true' : 'false'}
+    data-highlight-active={highlightActive ? 'true' : 'false'}
     set:html={definition}
   />
   <Spinner class="Mermaid__spinner" />
