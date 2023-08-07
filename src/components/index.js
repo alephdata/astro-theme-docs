@@ -12,6 +12,8 @@ export { default as Video } from './common/Video.astro';
 export { default as Steps } from './common/Steps.astro';
 export { default as Step } from './common/Step.astro';
 export { default as ContextualHelp } from './common/ContextualHelp.astro';
+export { default as Mermaid } from './common/Mermaid.astro';
+export { default as Spinner } from './common/Spinner.astro';
 
 export { default as DocsNav } from './docs/DocsNav.astro';
 

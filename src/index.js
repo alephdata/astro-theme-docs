@@ -29,6 +29,7 @@ function mdx(astroConfig, remarkPlugins = []) {
       injectComponent('Video', componentsEntry, 'named'),
       injectComponent('Steps', componentsEntry, 'named'),
       injectComponent('Step', componentsEntry, 'named'),
+      injectComponent('Mermaid', componentsEntry, 'named'),
       ...remarkPlugins,
     ],
   });

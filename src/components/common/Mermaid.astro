@@ -1,0 +1,103 @@
+---
+import Spinner from './Spinner.astro';
+
+const definition = Astro.props.content || Astro.slots.render();
+const { straightEdges } = Astro.props;
+---
+
+<script>
+  import mermaid from 'mermaid';
+  import themeCSS from './mermaid-theme.css?raw';
+
+  function makeStraightEdges(element) {
+    // This is a very hacky workaround because Mermaid does not support straigh lines
+    // as edges (see https://github.com/mermaid-js/mermaid/issues/2549).
+    // After rendering, we simply remove all points except the start and end point
+    // from the SVG path definitions rendered by Mermaid to get straight lines.
+    const edges = element.querySelectorAll('.edgePaths path');
+
+    for (const edge of edges) {
+      const path = edge.getAttribute('d');
+      const parts = path.match(/[MLC](?:\d+(?:\.\d+)?,\d+(?:\.\d+)?)/g);
+      const newPath = parts[0] + parts[parts.length - 1];
+      edge.setAttribute('d', newPath);
+    }
+  }
+
+  mermaid.initialize({
+    themeCSS,
+    securityLevel: 'loose',
+    fontFamily: 'var(--font-family)',
+    startOnLoad: false,
+  });
+
+  mermaid.run({
+    querySelector: '.Mermaid__graph',
+    postRenderCallback: (id) => {
+      const element = document.getElementById(id);
+      const parent = element.parentNode;
+
+      if (parent.dataset.straightEdges === 'true') {
+        makeStraightEdges(element);
+      }
+
+      parent.dataset.rendered = 'true';
+    },
+  });
+</script>
+
+<style>
+  .Mermaid {
+    position: relative;
+    padding: var(--space-sm);
+    aspect-ratio: 16 / 9;
+
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius);
+  }
+
+  @media screen and (prefers-color-scheme: dark) {
+    .Mermaid {
+      background-color: rgba(0, 0, 0, 0.15);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .Mermaid__graph:not([data-processed='true']) {
+    display: none;
+  }
+
+  .Mermaid__graph[data-rendered='true'] + .Mermaid__spinner {
+    display: none;
+  }
+
+  .Mermaid__graph {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .Mermaid__graph > :global(svg) {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .Mermaid__spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+
+<div class="Mermaid">
+  <div
+    class="Mermaid__graph"
+    data-straight-edges={straightEdges ? 'true' : 'false'}
+    set:html={definition}
+  />
+  <Spinner class="Mermaid__spinner" />
+</div>
