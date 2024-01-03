@@ -19,7 +19,6 @@ const background = highlighter.getBackgroundColor();
 <style define:vars={{ 'code-color-background': background }}>
   .Code {
     overflow: hidden;
-    background-color: var(--code-color-background);
     border-radius: var(--radius);
   }
 
@@ -37,6 +36,11 @@ const background = highlighter.getBackgroundColor();
   .Code > :global(pre) {
     padding-block: var(--space-xs);
     padding-inline: var(--space-sm);
+  }
+
+  .Code,
+  .Code > :global(pre) {
+    background-color: var(--code-color-background) !important;
   }
 </style>
 
