@@ -68,3 +68,17 @@
 .active .flowchart-link:not(.link-active) {
   opacity: 0.25;
 }
+
+.cluster rect {
+  fill: var(--color-bg-default);
+  stroke: var(--color-border-default);
+}
+
+.cluster-label foreignObject {
+  /* Super hacky workaround to place cluster labels above the cluster, not inside */
+  transform: translateY(-30px);
+}
+
+.cluster-label span {
+  color: var(--color-text);
+}
