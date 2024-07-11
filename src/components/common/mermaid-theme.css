@@ -30,6 +30,11 @@
   color: var(--color-fg-default);
 }
 
+.edgeLabel {
+  color: var(--color-fg-muted);
+  background-color: var(--color-bg-elevated);
+}
+
 .flowchart-link {
   stroke-width: 1.5px;
   stroke: var(--color-fg-muted);
