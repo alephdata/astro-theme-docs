@@ -30,7 +30,7 @@
   color: var(--color-fg-default);
 }
 
-.edgeLabel {
+.edgeLabel p {
   color: var(--color-fg-muted);
   background-color: var(--color-bg-elevated);
 }
