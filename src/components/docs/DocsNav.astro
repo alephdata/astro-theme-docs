@@ -4,7 +4,7 @@ import Nav from '../page/Nav.astro';
 import NavSection from '../page/NavSection.astro';
 import NavItem from '../page/NavItem.astro';
 
-const allPages = await Astro.glob('/**/*.mdx');
+const allPages = Object.values(import.meta.glob('/**/*.mdx', { eager: true }));
 const normalizeUrl = (url) => url.replace(/\/+$/, '');
 const currentUrl = normalizeUrl(Astro.url.pathname);
 const basePath = Astro.site?.pathname || '';

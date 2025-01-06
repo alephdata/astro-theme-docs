@@ -12,7 +12,7 @@ if (link && link.startsWith('/')) {
 }
 
 if (page && (!link || !label)) {
-  const allPages = await Astro.glob('/**/*.mdx');
+  const allPages = Object.values(import.meta.glob('/**/*.mdx', { eager: true }));
   pageObj = allPages.find(
     (pageObj) => (pageObj.url || '/') === path.join(basePath, page)
   );
