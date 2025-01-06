@@ -13,13 +13,13 @@ if (typeof lang !== 'string') {
 
 const theme = 'github-dark';
 const highlighter = await getHighlighter({ theme });
-const background = highlighter.getBackgroundColor();
 ---
 
-<style define:vars={{ 'code-color-background': background }}>
+<style>
   .Code {
     overflow: hidden;
     border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .Code__title {
@@ -40,7 +40,7 @@ const background = highlighter.getBackgroundColor();
 
   .Code,
   .Code > :global(pre) {
-    background-color: var(--code-color-background) !important;
+    background-color: var(--color-bg-code) !important;
   }
 </style>
 

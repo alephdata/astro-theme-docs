@@ -34,6 +34,7 @@
   --color-bg-negative: rgba(236, 72, 153, 0.15);
   --color-bg-highlight: rgb(250, 204, 21, 0.15);
   --color-bg-brand: var(--color-bg-primary);
+  --color-bg-code: rgb(15, 30, 45);
 
   --color-fg-default: rgb(50, 60, 76);
   --color-fg-emphasis: rgb(17, 24, 39);
@@ -59,6 +60,7 @@
   :root {
     --color-bg-default: rgb(17, 24, 39);
     --color-bg-elevated: rgb(31, 41, 55);
+    --color-bg-code: rgb(5, 10, 19);
 
     --color-fg-default: rgb(209, 213, 219);
     --color-fg-emphasis: rgb(255, 255, 255);
