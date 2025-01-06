@@ -30,7 +30,7 @@ function mdx(astroConfig, remarkPlugins = []) {
       injectComponent('Steps', componentsEntry, 'named'),
       injectComponent('Step', componentsEntry, 'named'),
       injectComponent('Mermaid', componentsEntry, 'named'),
-      ...remarkPlugins,
+      injectComponent('Markdown', componentsEntry, 'named'),
     ],
   });
 }
