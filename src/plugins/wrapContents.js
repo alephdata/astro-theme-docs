@@ -8,6 +8,7 @@ export default function wrapContents(componentName) {
       const wrapperNode = {
         type: 'mdxJsxFlowElement',
         name: componentName,
+        attributes: [],
         children: tree.children,
       };
 

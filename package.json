@@ -17,9 +17,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@astrojs/mdx": "^0.19.7",
+    "@astrojs/mdx": "^4.0.3",
     "@docsearch/js": "^3.8.2",
-    "astro": "^2.8.5",
+    "astro": "^5.1.2",
     "image-size": "^1.2.0",
     "mermaid": "^11.4.1",
     "shiki": "^0.14.6 <0.14.7",
