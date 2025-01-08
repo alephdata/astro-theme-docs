@@ -23,7 +23,6 @@
     "image-size": "^1.2.0",
     "marked": "^15.0.6",
     "mermaid": "^11.4.1",
-    "shiki": "^1.26.1",
     "tippy.js": "^6.3.7",
     "unist-util-visit": "^4.1.1"
   },
