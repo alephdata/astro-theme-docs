@@ -19,7 +19,6 @@
   "dependencies": {
     "@astrojs/mdx": "^4.0.3",
     "@docsearch/js": "^3.8.2",
-    "astro": "^5.1.2",
     "image-size": "^1.2.0",
     "marked": "^15.0.6",
     "mermaid": "^11.4.1",
@@ -28,6 +27,9 @@
   },
   "devDependencies": {
     "prettier": "^2.7.1"
+  },
+  "peerDependencies": {
+    "astro": "^5.1.2"
   },
   "prettier": {
     "singleQuote": true
