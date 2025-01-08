@@ -1,6 +1,5 @@
 ---
 import { Code } from 'astro/components';
-import { getHighlighter } from 'shiki';
 
 const { code, meta } = Astro.props;
 const title = typeof meta === 'string' && meta.match(/title="(.*)"/i)[1];
@@ -10,9 +9,6 @@ let { lang } = Astro.props;
 if (typeof lang !== 'string') {
   lang = undefined;
 }
-
-const theme = 'github-dark';
-const highlighter = await getHighlighter({ theme });
 ---
 
 <style>
@@ -46,5 +42,5 @@ const highlighter = await getHighlighter({ theme });
 
 <div class="Code">
   {title && <div class="Code__title">{title}</div>}
-  <Code {code} {theme} {lang} />
+  <Code theme="github-dark" {code} {lang} />
 </div>

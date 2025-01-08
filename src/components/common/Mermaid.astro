@@ -77,11 +77,6 @@ const { straightEdges, highlightActive } = Astro.props;
 </style>
 
 <div class="Mermaid">
-  <div
-    class="Mermaid__graph"
-    data-straight-edges={straightEdges ? 'true' : 'false'}
-    data-highlight-active={highlightActive ? 'true' : 'false'}
-    set:html={definition}
-  />
+  <div class="Mermaid__graph" set:html={definition} />
   <Spinner class="Mermaid__spinner" />
 </div>
