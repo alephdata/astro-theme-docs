@@ -44,7 +44,7 @@ jobs:
 
       - name: Configure GitHub Pages
         id: pages
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v5
 
       - name: Build static site
         run: |
@@ -69,7 +69,7 @@ jobs:
         run: npm run links -- --github-actions
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ inputs.build-path }}/dist/${{ steps.pages.outputs.base_path }}
 
@@ -85,4 +85,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
