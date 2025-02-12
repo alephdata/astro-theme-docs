@@ -32,7 +32,7 @@ runs:
 
     - name: Configure GitHub Pages
       id: pages
-      uses: actions/configure-pages@v2
+      uses: actions/configure-pages@v5
 
     - name: Build static site
       shell: bash
@@ -63,6 +63,6 @@ runs:
       run: npm run links -- --github-actions
 
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
+      uses: actions/upload-pages-artifact@v3
       with:
         path: ${{ inputs.docs-path }}/dist/${{ steps.pages.outputs.base_path }}
